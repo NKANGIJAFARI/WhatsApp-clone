@@ -22,13 +22,17 @@ const sidebar = () => {
       'Please enter an email for the user you want to chat with',
     );
 
+    console.log(input);
+
     if (!input) return null;
 
     if (
       EmailValidator.validate(input) &&
-      !checkIfChatExists &&
+      !checkIfChatExists(input) &&
       input !== user.email
     ) {
+      console.log('chat not exist');
+
       //If the chat doesnt exist and the email is valid, go on and save that chat
       db.collection('chats').add({
         users: [user.email, input],
@@ -36,16 +40,19 @@ const sidebar = () => {
     }
   };
 
-  const checkIfChatExists = () => {
+  console.log(user.photoURL);
+
+  const checkIfChatExists = (recipientEmail) =>
     !!chatsSnapshot?.docs.find((chat) =>
-      chat.data().users.find((user) => recepientEmail?.length > 0),
+      chat.data().users.find((user) => user === recipientEmail?.length > 0),
     );
-  };
+  /* use !! to make the return a bolean, its default return
+     will be an element but we need a bolean */
 
   return (
     <Container>
       <Header>
-        <UserAvatar onClick={() => auth.signOut()} />
+        <UserAvatar src={user?.photoURL} onClick={() => auth.signOut()} />
 
         <IconContainer>
           <IconButton>
