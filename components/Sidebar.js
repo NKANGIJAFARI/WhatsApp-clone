@@ -5,6 +5,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 
 const sidebar = () => {
+  const createChat = () => {
+    const input = prompt(
+      'Please enter an email for the user you want to chat with',
+    );
+
+    if (!input) return;
+  };
+
   return (
     <Container>
       <Header>
@@ -24,7 +32,7 @@ const sidebar = () => {
         <SearchInput placeholder='Search in chats' />
       </Search>
 
-      <SidebarButton>Start a new chat</SidebarButton>
+      <SidebarButton onClick={createChat}>Start a new chat</SidebarButton>
 
       {/* List of chats */}
     </Container>
