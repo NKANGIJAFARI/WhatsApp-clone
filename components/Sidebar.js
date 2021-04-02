@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Avatar, IconButton, Button } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
+import Chat from '../components/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 import * as EmailValidator from 'email-validator';
@@ -62,9 +63,9 @@ const sidebar = () => {
 
       <SidebarButton onClick={createChat}>Start a new chat</SidebarButton>
 
-      {chatsSnapshot?.docs.map((chat) => {
-        <Chat key={chat.id} id={chat.id} user={chat.data().users} />;
-      })}
+      {chatsSnapshot?.docs.map((chat) => (
+        <Chat key={chat.id} id={chat.id} user={chat.data().users} />
+      ))}
     </Container>
   );
 };

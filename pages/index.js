@@ -11,8 +11,6 @@ export default function Home() {
       </Head>
 
       <Sidebar />
-
-      <h2>Lets build whatsApp clone</h2>
     </div>
   );
 }
