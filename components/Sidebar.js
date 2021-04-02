@@ -9,7 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
 
-const sidebar = () => {
+const Sidebar = () => {
   const [user] = useAuthState(auth);
 
   const userChatRef = db
@@ -77,7 +77,7 @@ const sidebar = () => {
   );
 };
 
-export default sidebar;
+export default Sidebar;
 
 const Container = styled.div``;
 
