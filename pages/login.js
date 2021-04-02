@@ -1,13 +1,15 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-const login = () => {
+const Login = () => {
   return (
     <Container>
-      <Head>Login</Head>
+      <Head>
+        <title>Login</title>
+      </Head>
     </Container>
   );
 };
 
 const Container = styled.div``;
 
-export default login;
+export default Login;
