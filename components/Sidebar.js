@@ -3,6 +3,7 @@ import { Avatar, IconButton, Button } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
+import * as EmailValidator from 'email-validator';
 
 const sidebar = () => {
   const createChat = () => {
@@ -10,7 +11,11 @@ const sidebar = () => {
       'Please enter an email for the user you want to chat with',
     );
 
-    if (!input) return;
+    if (!input) return null;
+
+    if (EmailValidator.validate(input)) {
+      //WE ADD CHAT IN DB
+    }
   };
 
   return (
@@ -68,7 +73,7 @@ const Header = styled.div`
   display: flex;
   position: sticky;
   top: 0;
-  background-color: 0;
+  background-color: whiteSmoke;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
