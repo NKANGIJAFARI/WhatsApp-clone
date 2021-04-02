@@ -27,9 +27,7 @@ const sidebar = () => {
           <IconButton>
             <ChatIcon />
           </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+          <IconButton>{/* <MoreVertIcon /> */}</IconButton>
         </IconContainer>
       </Header>
       <Search>
