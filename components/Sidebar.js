@@ -25,6 +25,8 @@ const sidebar = () => {
       </Search>
 
       <SidebarButton>Start a new chat</SidebarButton>
+
+      {/* List of chats */}
     </Container>
   );
 };
