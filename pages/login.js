@@ -40,7 +40,7 @@ const LoginContainer = styled.div`
 `;
 
 const ChatLogo = styled(WhatsAppIcon)`
-  color: green;
+  color: #3cbc28;
   width: 100px;
   margin-bottom: 30px;
   &&& {
