@@ -13,6 +13,7 @@ import {
   InsertEmoticonRounded,
 } from '@material-ui/icons';
 import Message from '../Message';
+import getRecipientEmail from '../../utils/getRecipientEmail';
 
 const ChatScreen = ({ chat, messages }) => {
   const [input, setInput] = useState('');
@@ -24,6 +25,12 @@ const ChatScreen = ({ chat, messages }) => {
       .doc(router.query.id)
       .collection('messages')
       .orderBy('timestamp', 'asc'),
+  );
+
+  const [recipientSnapshot] = useCollection(
+    db
+      .collection('users')
+      .where('email', '==', getRecipientEmail(chat.user, user)),
   );
 
   const showMessages = () => {
@@ -67,13 +74,20 @@ const ChatScreen = ({ chat, messages }) => {
     setInput('');
   };
 
+  const recipient = recipientSnapshot?.docs?.[0]?.data();
+  const recipientEmail = getRecipientEmail(chat.users, user);
+
   return (
     <Container>
       <Header>
-        <Avatar></Avatar>
+        {recipient ? (
+          <Avatar src={recipient?.photoURL}></Avatar>
+        ) : (
+          <Avatar src={recipientEmail[0]}></Avatar>
+        )}
 
         <HeaderInformation>
-          <h3>Recip email</h3>
+          <h3>{recipientEmail}</h3>
           <p>Last seen</p>
         </HeaderInformation>
 
