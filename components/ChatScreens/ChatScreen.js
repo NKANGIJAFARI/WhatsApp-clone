@@ -12,6 +12,7 @@ import {
   AttachFileOutlined,
   InsertEmoticonRounded,
 } from '@material-ui/icons';
+import Message from '../Message';
 
 const ChatScreen = ({ chat, messages }) => {
   const [input, setInput] = useState('');
@@ -30,17 +31,21 @@ const ChatScreen = ({ chat, messages }) => {
       return messagesSnapshot.docs.map((message) => (
         <Message
           key={message.id}
-          user={mesage.data().user}
+          user={message.data().user}
           message={{
             ...message.data(),
             timestamp: message.data().timestamp?.toDate().getTime(),
           }}
         />
       ));
+    } else {
+      return JSON.parse(messages).map((message) => (
+        <Message key={message.id} user={message.user} message={message} />
+      ));
     }
   };
 
-  const sendMessage = () => {
+  const sendMessage = (e) => {
     e.preventDefault();
 
     // This will update a user's last seen status
@@ -51,8 +56,9 @@ const ChatScreen = ({ chat, messages }) => {
       { merge: true },
     );
 
+    //This functions adds a message to the database
     db.collection('chats').doc(router.query.id).collection('messages').add({
-      timestamp: firebase.firestore.FieldValue.serverTimestamp,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       message: input,
       user: user.email,
       photoURL: user.photoURL,
@@ -82,14 +88,19 @@ const ChatScreen = ({ chat, messages }) => {
       </Header>
 
       <MessageContainer>
-        {/* {showMessages()} */}
+        {showMessages()}
 
         <EndOfMessages />
       </MessageContainer>
 
       <InputContainer>
         <InsertEmoticonRounded />
-        <Input value={input} onChange={setInput(e.target.value)} />
+        <Input
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+        />
         <button hidden disabled={!input} type='submit' onClick={sendMessage}>
           Send Message
         </button>
