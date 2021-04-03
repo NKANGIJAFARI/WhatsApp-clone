@@ -36,6 +36,21 @@ export const getServerSideProps = async (context) => {
       ...messages,
       timestamp: messages.timestamp.toDate().getTime(),
     }));
+
+  //Prepare the  chats on the server
+
+  const chatRef = await ref.get();
+  const chat = {
+    id: chatRes.id,
+    ...chatRes.data(),
+  };
+
+  return {
+    props: {
+      messages: JSON.stringify(messages),
+      chat: chat,
+    },
+  };
 };
 
 const Container = styled.div`
