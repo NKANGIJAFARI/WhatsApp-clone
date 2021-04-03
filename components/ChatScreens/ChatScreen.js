@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { Avatar, IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { AttachFile } from '@material-ui/icons';
@@ -53,7 +54,7 @@ const ChatScreen = ({ chat, messages }) => {
       </Header>
 
       <MessageContainer>
-        {/* Show messages here */}
+        {showMessages}
 
         <EndOfMessages />
       </MessageContainer>
@@ -88,3 +89,7 @@ const HeaderInformation = styled.div`
     color: grey;
   }
 `;
+
+const HeaderIcons = styled.div``;
+
+const MessageContainer = styled.div``
