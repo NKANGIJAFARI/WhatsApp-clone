@@ -2,16 +2,21 @@ import styled from 'styled-components';
 import Head from 'next/head';
 import Sidebar from '../../components/Sidebar';
 import ChatScreen from '../../components/ChatScreens/ChatScreen';
+import { db, auth } from '../../firebase';
+import getRecipientEmail from '../../utils/getRecipientEmail';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-const Chat = () => {
+const Chat = ({ chat, messages }) => {
+  const [user] = useAuthState(auth);
+
   return (
     <Container>
       <Head>
-        <title>Chat</title>
+        <title>Chat with {getRecipientEmail(chat.users, user)}</title>
       </Head>
       <Sidebar />
       <ChatContainer>
-        <ChatScreen />
+        <ChatScreen chat={chat} messages={messages} />
       </ChatContainer>
     </Container>
   );
@@ -24,7 +29,7 @@ export const getServerSideProps = async (context) => {
   //PREP THE MESSAGES ON THE SERVER
   const messagesRef = await ref
     .collection('messages')
-    .order('timestamp', 'asc')
+    .orderBy('timestamp', 'asc')
     .get();
 
   const messages = messagesRef.docs
@@ -41,8 +46,8 @@ export const getServerSideProps = async (context) => {
 
   const chatRef = await ref.get();
   const chat = {
-    id: chatRes.id,
-    ...chatRes.data(),
+    id: chatRef.id,
+    ...chatRef.data(),
   };
 
   return {
