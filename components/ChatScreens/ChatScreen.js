@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -20,6 +20,8 @@ const ChatScreen = ({ chat, messages }) => {
   const [input, setInput] = useState('');
   const router = useRouter();
   const [user] = useAuthState(auth);
+
+  const endOfMessages = useRef(null);
 
   //Get the email of the recipient
   const recipientEmail = getRecipientEmail(chat.users, user);
@@ -59,6 +61,14 @@ const ChatScreen = ({ chat, messages }) => {
     }
   };
 
+  //This below func will help scroll whenever a message is sent or received
+  const ScrollToBottom = () => {
+    endOfMessages.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
+
   const sendMessage = (e) => {
     e.preventDefault();
 
@@ -79,6 +89,7 @@ const ChatScreen = ({ chat, messages }) => {
     });
 
     setInput('');
+    ScrollToBottom();
   };
 
   return (
@@ -119,7 +130,7 @@ const ChatScreen = ({ chat, messages }) => {
       <MessageContainer>
         {showMessages()}
 
-        <EndOfMessages />
+        <EndOfMessages ref={endOfMessages} />
       </MessageContainer>
 
       <InputContainer>
@@ -177,7 +188,9 @@ const MessageContainer = styled.div`
   min-height: 90vh;
 `;
 
-const EndOfMessages = styled.div``;
+const EndOfMessages = styled.div`
+  margin-bottom: 50px;
+`;
 
 const InputContainer = styled.form`
   display: flex;
