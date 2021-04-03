@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-
+import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
@@ -38,6 +38,18 @@ const ChatScreen = ({ chat, messages }) => {
         />
       ));
     }
+  };
+
+  const sendMessage = () => {
+    e.preventDefault();
+
+    // This will update a user's last seen status
+    db.collection('users').doc(user.uid).set(
+      {
+        lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
+      },
+      { merge: true },
+    );
   };
 
   return (
