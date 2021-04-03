@@ -9,6 +9,28 @@ import { AttachFile } from '@material-ui/icons';
 const ChatScreen = ({ chat, messages }) => {
   const router = useRouter();
   const [user] = useAuthState(auth);
+  const [messagesSnapshot] = useCollection(
+    db
+      .collection('chats')
+      .doc(router.query.id)
+      .collection('messages')
+      .orderBy('timestamp', 'asc'),
+  );
+
+  const showMessages = () => {
+    if (messagesSnapshot) {
+      return messagesSnapshot.docs.map((message) => (
+        <Message
+          key={message.id}
+          user={mesage.data().user}
+          message={{
+            ...message.data(),
+            timestamp: message.data().timestamp?.toDate().getTime(),
+          }}
+        />
+      ));
+    }
+  };
 
   return (
     <Container>
@@ -29,6 +51,12 @@ const ChatScreen = ({ chat, messages }) => {
           </IconButton>
         </HeaderIcons>
       </Header>
+
+      <MessageContainer>
+        {/* Show messages here */}
+
+        <EndOfMessages />
+      </MessageContainer>
     </Container>
   );
 };
