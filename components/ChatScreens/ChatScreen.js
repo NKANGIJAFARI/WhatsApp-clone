@@ -14,11 +14,17 @@ import {
 } from '@material-ui/icons';
 import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
+import TimeAgo from 'timeago-react';
 
 const ChatScreen = ({ chat, messages }) => {
   const [input, setInput] = useState('');
   const router = useRouter();
   const [user] = useAuthState(auth);
+
+  //Get the email of the recipient
+  const recipientEmail = getRecipientEmail(chat.users, user);
+
+  //Referenced to the messages collection
   const [messagesSnapshot] = useCollection(
     db
       .collection('chats')
@@ -27,11 +33,12 @@ const ChatScreen = ({ chat, messages }) => {
       .orderBy('timestamp', 'asc'),
   );
 
+  //Referenced to the user collection to get a recipient data
   const [recipientSnapshot] = useCollection(
-    db
-      .collection('users')
-      .where('email', '==', getRecipientEmail(chat.user, user)),
+    db.collection('users').where('email', '==', recipientEmail),
   );
+
+  const recipient = recipientSnapshot?.docs?.[0]?.data();
 
   const showMessages = () => {
     if (messagesSnapshot) {
@@ -74,9 +81,6 @@ const ChatScreen = ({ chat, messages }) => {
     setInput('');
   };
 
-  const recipient = recipientSnapshot?.docs?.[0]?.data();
-  const recipientEmail = getRecipientEmail(chat.users, user);
-
   return (
     <Container>
       <Header>
@@ -88,7 +92,18 @@ const ChatScreen = ({ chat, messages }) => {
 
         <HeaderInformation>
           <h3>{recipientEmail}</h3>
-          <p>Last seen</p>
+          {recipientSnapshot ? (
+            <p>
+              Last Seen:{' '}
+              {recipient?.lastSeen?.toDate() ? (
+                <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
+              ) : (
+                'Unavailable'
+              )}
+            </p>
+          ) : (
+            <p>Loading last ative</p>
+          )}
         </HeaderInformation>
 
         <HeaderIcons>
