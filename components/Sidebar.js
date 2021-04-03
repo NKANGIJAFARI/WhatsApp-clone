@@ -14,7 +14,7 @@ const Sidebar = () => {
 
   const userChatRef = db
     .collection('chats')
-    .where('users', 'array-contains', user.email);
+    .where('users', 'array-contains', user?.email);
   const [chatsSnapshot] = useCollection(userChatRef);
 
   const createChat = () => {
