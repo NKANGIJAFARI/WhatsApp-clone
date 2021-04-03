@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
@@ -12,6 +14,7 @@ import {
 } from '@material-ui/icons';
 
 const ChatScreen = ({ chat, messages }) => {
+  const [input, setInput] = useState('');
   const router = useRouter();
   const [user] = useAuthState(auth);
   const [messagesSnapshot] = useCollection(
@@ -65,7 +68,10 @@ const ChatScreen = ({ chat, messages }) => {
 
       <InputContainer>
         <InsertEmoticonRounded />
-        <Input />
+        <Input value={input} onChange={setInput(e.target.value)} />
+        <button hidden disabled={!input} type='submit' onClick={sendMessage}>
+          Send Message
+        </button>
         <AttachFileOutlined />
       </InputContainer>
     </Container>
