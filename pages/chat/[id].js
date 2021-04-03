@@ -26,6 +26,16 @@ export const getServerSideProps = async (context) => {
     .collection('messages')
     .order('timestamp', 'asc')
     .get();
+
+  const messages = messagesRef.docs
+    .map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+    .map((messages) => ({
+      ...messages,
+      timestamp: messages.timestamp.toDate().getTime(),
+    }));
 };
 
 const Container = styled.div`
