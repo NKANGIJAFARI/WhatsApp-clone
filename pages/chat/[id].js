@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Head from 'next/head';
-import sidebar from '../../components/Sidebar';
+import Sidebar from '../../components/Sidebar';
+import ChatScreen from '../../components/ChatScreens/ChatScreen';
 
 const Chat = () => {
   return (
@@ -9,10 +10,36 @@ const Chat = () => {
         <title>Chat</title>
       </Head>
       <Sidebar />
+      <ChatContainer>
+        <ChatScreen />
+      </ChatContainer>
     </Container>
   );
 };
-
-const Container = styled.div``;
-
 export default Chat;
+
+export const getServerSideProps = async (context) => {
+  const ref = db.collection('chats').doc(context.query.id);
+
+  //PREP THE MESSAGES ON THE SERVER
+  const messagesRef = await ref
+    .collection('messages')
+    .order('timestamp', 'asc')
+    .get();
+};
+
+const Container = styled.div`
+  display: flex;
+`;
+
+const ChatContainer = styled.div`
+  flex: 1;
+  overflow: scroll;
+  height: 100vh;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  --ms-overflow-style: none;
+  scrollbar-width: none;
+`;
