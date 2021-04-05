@@ -51,29 +51,22 @@ const Sidebar = () => {
 
   const searchUsers = (searchedUser) => {
     console.log(searchedUser);
-    // const matchedChat = chatsSnapshot?.docs?.filter((chat) =>
-    //   chat.data().includes(searchedUser),
-    // );
-    // const regex = /[zenai@gmail.com]/gi;
-    // console.log('zeniaLy'.match(regex));
-    const matchedArray = [];
+
+    const recipients = [];
     chatsSnapshot?.docs?.map((chat) => {
-      // console.log(
-      //   chat
-      //     .data()
-      //     .users.filter((user) => user.includes('nkangijafari@gmail.com')),
-      // );
-      const matched = chat
-        .data()
-        .users.filter((user) => user.includes(searchedUser) && user !== );
+      // console.log({ userLoggedIn });
 
-      if (matched) {
-        matchedArray.push(matched);
-      }
-    });
-
-    // chatsSnapshot?.docs?.filter(chat => chat.data().users)
-    console.log(matchedArray);
+      chat.data().users.map((user) => {
+        if (searchedUser) {
+          if (user.includes(searchedUser) && user !== userLoggedIn.email) {
+            recipients.push(user);
+          }
+        } else {
+          if (user !== userLoggedIn) {
+            recipients.push(user);
+          }
+        }
+      })
   };
 
   // useEffect(() => {
@@ -83,7 +76,10 @@ const Sidebar = () => {
   return (
     <Container>
       <Header>
-        <UserAvatar src={user?.photoURL} onClick={() => auth.signOut()} />
+        <UserAvatar
+          src={userLoggedIn?.photoURL}
+          onClick={() => auth.signOut()}
+        />
 
         <IconContainer>
           <IconButton className='StartChat__btn' onClick={createChat}>
