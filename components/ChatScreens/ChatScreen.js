@@ -18,6 +18,8 @@ import TimeAgo from 'timeago-react';
 
 const ChatScreen = ({ chat, messages }) => {
   const [input, setInput] = useState('');
+  const [showRecipient, setShowRecipient] = useState(false);
+
   const router = useRouter();
   const [user] = useAuthState(auth);
 
@@ -95,16 +97,14 @@ const ChatScreen = ({ chat, messages }) => {
   //Get recipient information
 
   const showRecipientInfo = () => {
+    setShowRecipient(!showRecipient);
     console.log(recipient);
   };
 
   return (
     <Container>
       <Header>
-        <HeaderInformation
-          onClick={() => {
-            console.log(recipient);
-          }}>
+        <HeaderInformation onClick={showRecipientInfo}>
           <HeaderAvatar>
             {recipient ? (
               <Avatar src={recipient?.photoURL}></Avatar>
@@ -139,11 +139,21 @@ const ChatScreen = ({ chat, messages }) => {
         </HeaderIcons>
       </Header>
 
-      <MessageContainer>
-        {showMessages()}
+      <MessagesWrapper>
+        <MessageContainer>
+          {showMessages()}
+          <EndOfMessages ref={endOfMessages} />
+        </MessageContainer>
+        <RecipientDetails className={showRecipient ? 'active' : ''}>
+          {recipient ? (
+            <Avatar src={recipient?.photoURL}></Avatar>
+          ) : (
+            <Avatar src={recipientEmail[0]}></Avatar>
+          )}
 
-        <EndOfMessages ref={endOfMessages} />
-      </MessageContainer>
+          <p>Recipient Name</p>
+        </RecipientDetails>
+      </MessagesWrapper>
 
       <InputContainer>
         <InsertEmoticonRounded />
@@ -206,10 +216,28 @@ const HeaderAvatar = styled.div`
 
 const HeaderIcons = styled.div``;
 
+const MessagesWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 const MessageContainer = styled.div`
   padding: 30px;
   background-color: #e5ded8;
   min-height: 90vh;
+  flex: 1;
+`;
+
+const RecipientDetails = styled.div`
+  min-width: 300px;
+  display: none;
+  opacity: 0.5;
+  transition: display 0.9s;
+
+  &.active {
+    display: block;
+    opacity: 1;
+  }
 `;
 
 const EndOfMessages = styled.div`
