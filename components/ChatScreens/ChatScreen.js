@@ -173,6 +173,7 @@ const ChatScreen = ({ chat, messages }) => {
           )}
 
           <p>{recipient ? recipient.displayName : 'Account not found'}</p>
+          <p>{recipient ? recipient.email : ''}</p>
         </RecipientDetails>
       </RecipientDetailsWrapper>
     </Container>
