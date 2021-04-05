@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import styled from 'styled-components';
 import { Avatar, IconButton, Button } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -10,13 +12,17 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
 
 const Sidebar = () => {
-  const [user] = useAuthState(auth);
+  const [userLoggedIn] = useAuthState(auth);
+
+  //Get whats typed in to search users
+  const [searchInput, setSearchInput] = useState('');
 
   const userChatRef = db
     .collection('chats')
-    .where('users', 'array-contains', user?.email);
+    .where('users', 'array-contains', userLoggedIn?.email);
   const [chatsSnapshot] = useCollection(userChatRef);
 
+  //It prompt for user to enter email they want to chat with
   const createChat = () => {
     const input = prompt(
       'Please enter an email for the user you want to chat with',
@@ -27,11 +33,11 @@ const Sidebar = () => {
     if (
       EmailValidator.validate(input) &&
       !checkIfChatExists(input) &&
-      input !== user.email
+      input !== userLoggedIn.email
     ) {
       //If the chat doesnt exist and the email is valid, go on and save that chat
       db.collection('chats').add({
-        users: [user.email, input],
+        users: [userLoggedIn.email, input],
       });
     }
   };
@@ -42,6 +48,37 @@ const Sidebar = () => {
     );
   /* use !! to make the return a bolean, its default return
      will be an element but we need a bolean */
+
+  const searchUsers = (searchedUser) => {
+    console.log(searchedUser);
+    // const matchedChat = chatsSnapshot?.docs?.filter((chat) =>
+    //   chat.data().includes(searchedUser),
+    // );
+    // const regex = /[zenai@gmail.com]/gi;
+    // console.log('zeniaLy'.match(regex));
+    const matchedArray = [];
+    chatsSnapshot?.docs?.map((chat) => {
+      // console.log(
+      //   chat
+      //     .data()
+      //     .users.filter((user) => user.includes('nkangijafari@gmail.com')),
+      // );
+      const matched = chat
+        .data()
+        .users.filter((user) => user.includes(searchedUser) && user !== );
+
+      if (matched) {
+        matchedArray.push(matched);
+      }
+    });
+
+    // chatsSnapshot?.docs?.filter(chat => chat.data().users)
+    console.log(matchedArray);
+  };
+
+  // useEffect(() => {
+  //   searchUsers(searchInput);
+  // });
 
   return (
     <Container>
@@ -60,10 +97,13 @@ const Sidebar = () => {
       </Header>
       <Search>
         <SearchIcon />
-        <SearchInput placeholder='Search in chats' />
+        <SearchInput
+          placeholder='Search in chats'
+          onChange={(e) => {
+            searchUsers(e.target.value);
+          }}
+        />
       </Search>
-
-      <SidebarButton>Start a new chat</SidebarButton>
 
       {chatsSnapshot?.docs.map((chat) => (
         <Chat key={chat.id} id={chat.id} users={chat.data().users} />
@@ -102,14 +142,6 @@ const SearchInput = styled.input`
   outline-width: 0;
   border: none;
   flex: 1;
-`;
-
-const SidebarButton = styled(Button)`
-  width: 100%;
-  &&& {
-    border-top: 1px solid whiteSmoke;
-    border-bottom: 1px solid whiteSmoke;
-  }
 `;
 
 const Header = styled.div`
