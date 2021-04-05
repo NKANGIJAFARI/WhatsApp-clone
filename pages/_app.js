@@ -9,6 +9,8 @@ import Loading from '../components/Loading';
 function MyApp({ Component, pageProps }) {
   const [user, loading] = useAuthState(auth);
 
+  console.log(user);
+
   useEffect(() => {
     if (user) {
       db.collection('users').doc(user.uid).set(
@@ -16,6 +18,7 @@ function MyApp({ Component, pageProps }) {
           email: user.email,
           lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
           photoURL: user.photoURL,
+          displayName: user.displayName,
         },
         { merge: true },
       );
