@@ -22,8 +22,6 @@ const Sidebar = () => {
       'Please enter an email for the user you want to chat with',
     );
 
-    console.log(input);
-
     if (!input) return null;
 
     if (
@@ -31,16 +29,12 @@ const Sidebar = () => {
       !checkIfChatExists(input) &&
       input !== user.email
     ) {
-      console.log('chat not exist');
-
       //If the chat doesnt exist and the email is valid, go on and save that chat
       db.collection('chats').add({
         users: [user.email, input],
       });
     }
   };
-
-  console.log(user.photoURL);
 
   const checkIfChatExists = (recipientEmail) =>
     !!chatsSnapshot?.docs.find((chat) =>
