@@ -209,8 +209,8 @@ const HeaderInformation = styled.div`
 
 const HeaderInfoText = styled.div`
   > h3 {
-    margin-bottom: 3px;
     margin: 0;
+    margin-bottom: 3px;
   }
 
   > p {

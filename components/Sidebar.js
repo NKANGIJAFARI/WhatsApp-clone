@@ -15,6 +15,7 @@ const Sidebar = () => {
   const [userLoggedIn] = useAuthState(auth);
 
   const [searching, setSearching] = useState(false);
+  const [chatsFiltered, setChatsFiltered] = useState([]);
 
   //Get whats typed in to search users
   // const [searchInput, setSearchInput] = useState('');
@@ -45,18 +46,20 @@ const Sidebar = () => {
   };
 
   const checkIfChatExists = (recipientEmail) =>
+    /* use !! to make the return a bolean, its default return
+     will be an element but we need a bolean */
     !!chatsSnapshot?.docs.find((chat) =>
       chat.data().users.find((user) => user === recipientEmail?.length > 0),
     );
-  /* use !! to make the return a bolean, its default return
-     will be an element but we need a bolean */
-  let chatsFiltered = [];
+
   const searchUsers = (searchInput) => {
-    chatsFiltered = chatsSnapshot?.docs.filter(
+    const checkedChats = chatsSnapshot?.docs.filter(
       (chat) =>
         chat.data().users[0].includes(searchInput) ||
         chat.data().users[1].includes(searchInput),
     );
+
+    setChatsFiltered(checkedChats);
   };
 
   return (
