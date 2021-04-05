@@ -100,7 +100,6 @@ const ChatScreen = ({ chat, messages }) => {
 
   const showRecipientInfo = () => {
     setShowRecipient(!showRecipient);
-    console.log(recipient);
   };
 
   return (

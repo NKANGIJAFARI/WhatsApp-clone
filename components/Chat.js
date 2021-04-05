@@ -10,6 +10,8 @@ const Chat = ({ id, users }) => {
   const router = useRouter();
   const [user] = useAuthState(auth);
 
+  console.log(users);
+
   const [recipientSnapshot] = useCollection(
     db.collection('users').where('email', '==', getRecipientEmail(users, user)),
   );

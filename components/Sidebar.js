@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import styled from 'styled-components';
 import { Avatar, IconButton, Button } from '@material-ui/core';
@@ -14,8 +14,10 @@ import { auth, db } from '../firebase';
 const Sidebar = () => {
   const [userLoggedIn] = useAuthState(auth);
 
+  const [searching, setSearching] = useState(false);
+
   //Get whats typed in to search users
-  const [searchInput, setSearchInput] = useState('');
+  // const [searchInput, setSearchInput] = useState('');
 
   const userChatRef = db
     .collection('chats')
@@ -48,30 +50,14 @@ const Sidebar = () => {
     );
   /* use !! to make the return a bolean, its default return
      will be an element but we need a bolean */
-
-  const searchUsers = (searchedUser) => {
-    console.log(searchedUser);
-
-    const recipients = [];
-    chatsSnapshot?.docs?.map((chat) => {
-      // console.log({ userLoggedIn });
-
-      chat.data().users.map((user) => {
-        if (searchedUser) {
-          if (user.includes(searchedUser) && user !== userLoggedIn.email) {
-            recipients.push(user);
-          }
-        } else {
-          if (user !== userLoggedIn) {
-            recipients.push(user);
-          }
-        }
-      })
+  let chatsFiltered = [];
+  const searchUsers = (searchInput) => {
+    chatsFiltered = chatsSnapshot?.docs.filter(
+      (chat) =>
+        chat.data().users[0].includes(searchInput) ||
+        chat.data().users[1].includes(searchInput),
+    );
   };
-
-  // useEffect(() => {
-  //   searchUsers(searchInput);
-  // });
 
   return (
     <Container>
@@ -97,13 +83,30 @@ const Sidebar = () => {
           placeholder='Search in chats'
           onChange={(e) => {
             searchUsers(e.target.value);
+            e.target.value ? setSearching(true) : setSearching(false);
           }}
         />
       </Search>
+      {searching
+        ? chatsFiltered.map((chat) => (
+            <Chat key={chat.id} id={chat.id} users={chat.data().users} />
+          ))
+        : chatsSnapshot?.docs.map((chat) => (
+            <Chat key={chat.id} id={chat.id} users={chat.data().users} />
+          ))}
 
-      {chatsSnapshot?.docs.map((chat) => (
-        <Chat key={chat.id} id={chat.id} users={chat.data().users} />
-      ))}
+      {/* {chatsSnapshot?.docs.map((chat) =>
+        recipientsArray?.map(
+          (recipient) =>
+            chat.data().users.includes(recipient) &&
+            (recipient.includes(chat.data().users[0]) ||
+            recipient.includes(chat.data().users[1]) ? (
+             
+            ) : (
+              ''
+            )),
+        ),
+      )} */}
     </Container>
   );
 };
@@ -150,6 +153,7 @@ const Header = styled.div`
   padding: 15px;
   height: 80px;
   border-bottom: 1px solid whiteSmoke;
+  z-index: 100;
 `;
 
 const UserAvatar = styled(Avatar)`
