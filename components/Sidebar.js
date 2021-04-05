@@ -81,12 +81,13 @@ const Container = styled.div`
   max-width: 350px;
   overflow-y: scroll;
 
-  ::webkit-scrollbar {
+  ::-webkit-scrollbar {
     display: none;
   }
 
-  --ms-overflow-style: none;
-  scroollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scrollbar-width: none;
 `;
 
 const Search = styled.div`

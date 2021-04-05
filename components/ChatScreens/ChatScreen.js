@@ -103,77 +103,85 @@ const ChatScreen = ({ chat, messages }) => {
 
   return (
     <Container>
-      <Header>
-        <HeaderInformation onClick={showRecipientInfo}>
-          <HeaderAvatar>
-            {recipient ? (
-              <Avatar src={recipient?.photoURL}></Avatar>
-            ) : (
-              <Avatar src={recipientEmail[0]}></Avatar>
-            )}
-          </HeaderAvatar>
-          <HeaderInfoText>
-            <h3>{recipientEmail}</h3>
-            {recipientSnapshot ? (
-              <p>
-                Last Seen:{' '}
-                {recipient?.lastSeen?.toDate() ? (
-                  <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
-                ) : (
-                  'Unavailable'
-                )}
-              </p>
-            ) : (
-              <p>Loading last ative</p>
-            )}
-          </HeaderInfoText>
-        </HeaderInformation>
-
-        <HeaderIcons>
-          <IconButton>
-            <AttachFile />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        </HeaderIcons>
-      </Header>
-
       <MessagesWrapper>
+        <Header>
+          <HeaderInformation onClick={showRecipientInfo}>
+            <HeaderAvatar>
+              {recipient ? (
+                <Avatar src={recipient?.photoURL}></Avatar>
+              ) : (
+                <Avatar src={recipientEmail[0]}></Avatar>
+              )}
+            </HeaderAvatar>
+            <HeaderInfoText>
+              <h3>{recipient?.displayName}</h3>
+              {recipientSnapshot ? (
+                <p>
+                  Last Seen:{' '}
+                  {recipient?.lastSeen?.toDate() ? (
+                    <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
+                  ) : (
+                    'Account Not Found'
+                  )}
+                </p>
+              ) : (
+                <p>Loading last ative</p>
+              )}
+            </HeaderInfoText>
+          </HeaderInformation>
+
+          <HeaderIcons>
+            <IconButton>
+              <AttachFile />
+            </IconButton>
+            <IconButton>
+              <MoreVertIcon />
+            </IconButton>
+          </HeaderIcons>
+        </Header>
+
         <MessageContainer>
           {showMessages()}
           <EndOfMessages ref={endOfMessages} />
         </MessageContainer>
-        <RecipientDetails className={showRecipient ? 'active' : ''}>
+
+        <InputContainer>
+          <InsertEmoticonRounded />
+          <Input
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+          <button hidden disabled={!input} type='submit' onClick={sendMessage}>
+            Send Message
+          </button>
+          <AttachFileOutlined />
+        </InputContainer>
+      </MessagesWrapper>
+
+      <RecipientDetailsWrapper className={showRecipient ? 'active' : ''}>
+        <RecipientDetails>
           {recipient ? (
-            <Avatar src={recipient?.photoURL}></Avatar>
+            <Avatar
+              src={recipient?.photoURL}
+              className='details__avatar'></Avatar>
           ) : (
             <Avatar src={recipientEmail[0]}></Avatar>
           )}
 
-          <p>Recipient Name</p>
+          <p>{recipient ? recipient.displayName : 'Account not found'}</p>
         </RecipientDetails>
-      </MessagesWrapper>
-
-      <InputContainer>
-        <InsertEmoticonRounded />
-        <Input
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-        />
-        <button hidden disabled={!input} type='submit' onClick={sendMessage}>
-          Send Message
-        </button>
-        <AttachFileOutlined />
-      </InputContainer>
+      </RecipientDetailsWrapper>
     </Container>
   );
 };
 export default ChatScreen;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const Header = styled.div`
   position: sticky;
@@ -217,26 +225,38 @@ const HeaderAvatar = styled.div`
 const HeaderIcons = styled.div``;
 
 const MessagesWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
+  flex: 1;
 `;
 
 const MessageContainer = styled.div`
   padding: 30px;
-  background-color: #e5ded8;
+  /* background-color: #e5ded8; */
+  background: black;
   min-height: 90vh;
-  flex: 1;
 `;
 
-const RecipientDetails = styled.div`
+const RecipientDetailsWrapper = styled.div`
   min-width: 300px;
   display: none;
-  opacity: 0.5;
   transition: display 0.9s;
+  height: 100vh;
+  overflow: hidden;
 
   &.active {
-    display: block;
-    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 30px;
+    background-color: yellowgreen;
+    height: 100vh;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  & .details__avatar {
+    width: 150px;
+    height: 150px;
   }
 `;
 
