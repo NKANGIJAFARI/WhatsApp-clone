@@ -49,8 +49,9 @@ const Sidebar = () => {
         <UserAvatar src={user?.photoURL} onClick={() => auth.signOut()} />
 
         <IconContainer>
-          <IconButton>
+          <IconButton className='StartChat__btn'>
             <ChatIcon />
+            <StartNewChat>New Chat</StartNewChat>
           </IconButton>
           <IconButton>
             <MoreVertIcon />
@@ -131,4 +132,29 @@ const UserAvatar = styled(Avatar)`
   }
 `;
 
-const IconContainer = styled.div``;
+const StartNewChat = styled.p`
+  position: absolute;
+  top: 100%;
+  left: -40px;
+  border: 1px solid whiteSmoke;
+  text-align: center;
+  display: none;
+  &&& {
+    font-size: 16px;
+    margin: 0;
+    width: max-content;
+  }
+`;
+
+const IconContainer = styled.div`
+  & .StartChat__btn {
+    position: relative;
+
+    :hover {
+      background-color: green;
+    }
+    :hover > p {
+      display: block;
+    }
+  }
+`;

@@ -233,8 +233,7 @@ const MessagesWrapper = styled.div`
 
 const MessageContainer = styled.div`
   padding: 30px;
-  /* background-color: #e5ded8; */
-  background: black;
+  background-color: #e5ded8;
   min-height: 90vh;
 `;
 
@@ -266,7 +265,7 @@ const RecipientDetails = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding: 60px 30px;
-  background-color: yellowgreen;
+  background-color: whiteSmoke;
 
   & .details__avatar {
     width: 150px;
