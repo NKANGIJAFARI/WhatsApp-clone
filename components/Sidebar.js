@@ -150,10 +150,7 @@ const IconContainer = styled.div`
   & .StartChat__btn {
     position: relative;
 
-    :hover {
-      background-color: green;
-    }
-    :hover > p {
+    & > :hover p {
       display: block;
     }
   }
