@@ -7,9 +7,11 @@ import styled from 'styled-components';
 import { auth, db } from '../../firebase';
 import { Avatar, IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 import {
   AttachFile,
   AttachFileOutlined,
+  Cancel,
   InsertEmoticonRounded,
 } from '@material-ui/icons';
 import Message from '../Message';
@@ -162,6 +164,7 @@ const ChatScreen = ({ chat, messages }) => {
 
       <RecipientDetailsWrapper className={showRecipient ? 'active' : ''}>
         <RecipientDetails>
+          <CancelIcon onClick={showRecipientInfo} />
           {recipient ? (
             <Avatar
               src={recipient?.photoURL}
@@ -243,20 +246,41 @@ const RecipientDetailsWrapper = styled.div`
   overflow: hidden;
 
   &.active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px 30px;
-    background-color: yellowgreen;
+    display: block;
     height: 100vh;
     overflow-y: hidden;
-    position: relative;
+    position: sticky;
+    top: 0;
   }
+`;
+
+const RecipientDetails = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 60px 30px;
+  background-color: yellowgreen;
 
   & .details__avatar {
     width: 150px;
     height: 150px;
+  }
+`;
+
+const CancelIcon = styled(Cancel)`
+  &&& {
+    font-size: 2.5rem;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    cursor: pointer;
   }
 `;
 
