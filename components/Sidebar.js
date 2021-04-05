@@ -49,7 +49,7 @@ const Sidebar = () => {
         <UserAvatar src={user?.photoURL} onClick={() => auth.signOut()} />
 
         <IconContainer>
-          <IconButton className='StartChat__btn'>
+          <IconButton className='StartChat__btn' onClick={createChat}>
             <ChatIcon />
             <StartNewChat>New Chat</StartNewChat>
           </IconButton>
@@ -63,7 +63,7 @@ const Sidebar = () => {
         <SearchInput placeholder='Search in chats' />
       </Search>
 
-      <SidebarButton onClick={createChat}>Start a new chat</SidebarButton>
+      <SidebarButton>Start a new chat</SidebarButton>
 
       {chatsSnapshot?.docs.map((chat) => (
         <Chat key={chat.id} id={chat.id} users={chat.data().users} />
