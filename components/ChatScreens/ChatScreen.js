@@ -234,7 +234,8 @@ const MessagesWrapper = styled.div`
 `;
 
 const MessageContainer = styled.div`
-  padding: 30px;
+  padding: 20px;
+  padding-top: 83px;
   background-color: #e5ded8;
   min-height: 90vh;
 `;
@@ -286,7 +287,7 @@ const CancelIcon = styled(Cancel)`
 `;
 
 const EndOfMessages = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 6px;
 `;
 
 const InputContainer = styled.form`

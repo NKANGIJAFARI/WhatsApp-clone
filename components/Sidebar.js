@@ -117,7 +117,6 @@ const Container = styled.div`
   border-right: 1px solid whiteSmoke;
   height: 100vh;
   min-height: 300px;
-  max-width: 350px;
   overflow-y: scroll;
 
   ::-webkit-scrollbar {
@@ -155,7 +154,7 @@ const Search = styled.div`
   align-items: center;
   justify-content: flex-end;
   border-radius: 2px;
-  padding: 20px 0px 0px 30px;
+  padding: 0px 0px 0px 20%;
 `;
 
 const SearchInput = styled.input`
@@ -178,7 +177,7 @@ const Header = styled.div`
   top: 0;
   background-color: whiteSmoke;
   padding: 10px 15px;
-  height: 120px;
+  height: 100px;
   border-bottom: 1px solid whiteSmoke;
   z-index: 100;
 `;

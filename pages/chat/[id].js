@@ -68,7 +68,8 @@ const Container = styled.div`
 
 const Main = styled.div`
   display: flex;
-  max-width: 1250px;
+  width: 100%;
+  max-width: 1200px;
 `;
 
 const ChatContainer = styled.div`

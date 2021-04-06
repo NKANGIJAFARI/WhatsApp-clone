@@ -7,21 +7,31 @@ import Sidebar from '../components/Sidebar';
 export default function Home() {
   return (
     <Container>
-      <Head>
-        <title>WhatsApp clone</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+      <Main>
+        <Head>
+          <title>WhatsApp clone</title>
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
 
-      <Wrapper>
-        <Sidebar />
-        <HomeIntro />
-      </Wrapper>
+        <Wrapper>
+          <Sidebar />
+          <HomeIntro />
+        </Wrapper>
+      </Main>
     </Container>
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
 
+const Main = styled.div`
+  width: 100%;
+  max-width: 1200px;
+`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
