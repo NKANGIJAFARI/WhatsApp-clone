@@ -97,19 +97,6 @@ const Sidebar = () => {
         : chatsSnapshot?.docs.map((chat) => (
             <Chat key={chat.id} id={chat.id} users={chat.data().users} />
           ))}
-
-      {/* {chatsSnapshot?.docs.map((chat) =>
-        recipientsArray?.map(
-          (recipient) =>
-            chat.data().users.includes(recipient) &&
-            (recipient.includes(chat.data().users[0]) ||
-            recipient.includes(chat.data().users[1]) ? (
-             
-            ) : (
-              ''
-            )),
-        ),
-      )} */}
     </Container>
   );
 };
@@ -125,7 +112,28 @@ const Container = styled.div`
   overflow-y: scroll;
 
   ::-webkit-scrollbar {
-    display: none;
+    width: 10px;
+    background-color: whiteSmoke;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #bdbdbd;
+    height: 60px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #999;
   }
 
   -ms-overflow-style: none;
