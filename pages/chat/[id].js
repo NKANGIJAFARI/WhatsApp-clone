@@ -11,13 +11,15 @@ const Chat = ({ chat, messages }) => {
 
   return (
     <Container>
-      <Head>
-        <title>Chat with {getRecipientEmail(chat.users, user)}</title>
-      </Head>
-      <Sidebar />
-      <ChatContainer>
-        <ChatScreen chat={chat} messages={messages} />
-      </ChatContainer>
+      <Main>
+        <Head>
+          <title>Chat with {getRecipientEmail(chat.users, user)}</title>
+        </Head>
+        <Sidebar />
+        <ChatContainer>
+          <ChatScreen chat={chat} messages={messages} />
+        </ChatContainer>
+      </Main>
     </Container>
   );
 };
@@ -59,8 +61,14 @@ export const getServerSideProps = async (context) => {
 };
 
 const Container = styled.div`
-  display: flex;
   width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const Main = styled.div`
+  display: flex;
+  max-width: 1250px;
 `;
 
 const ChatContainer = styled.div`
