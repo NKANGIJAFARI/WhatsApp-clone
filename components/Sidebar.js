@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Avatar, IconButton, Button } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
 import Chat from '../components/Chat';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 import SearchIcon from '@material-ui/icons/Search';
 import * as EmailValidator from 'email-validator';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -58,8 +58,8 @@ const Sidebar = () => {
   const searchUsers = (searchInput) => {
     const checkedChats = chatsSnapshot?.docs.filter(
       (chat) =>
-        chat.data().users[0].includes(searchInput) ||
-        chat.data().users[1].includes(searchInput),
+        chat.data().users[0].includes(searchInput.toLowerCase()) ||
+        chat.data().users[1].includes(searchInput.toLowerCase()),
     );
 
     setChatsFiltered(checkedChats);
@@ -113,7 +113,7 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Container = styled.div`
-  flex: 0.45;
+  width: 40%;
   border-right: 1px solid whiteSmoke;
   height: 100vh;
   min-height: 300px;

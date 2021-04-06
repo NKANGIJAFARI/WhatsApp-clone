@@ -26,6 +26,7 @@ const Container = styled.div``;
 
 const MessageElement = styled.p`
   width: fit-content;
+  max-width: 75%;
   padding: 15px;
   border-radius: 8px;
   margin: 10px;
@@ -33,6 +34,7 @@ const MessageElement = styled.p`
   padding-bottom: 25px;
   position: relative;
   text-align: center;
+  word-break: break-word;
 `;
 
 const Sender = styled(MessageElement)`

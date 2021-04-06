@@ -60,10 +60,11 @@ export const getServerSideProps = async (context) => {
 
 const Container = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 const ChatContainer = styled.div`
-  flex: 1;
+  width: 60%;
   overflow: scroll;
   height: 100vh;
 
