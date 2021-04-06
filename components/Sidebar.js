@@ -68,34 +68,37 @@ const Sidebar = () => {
   return (
     <Container>
       <Header>
-        <UserAvatar src={userLoggedIn?.photoURL} />
+        <HeaderDetails>
+          <UserAvatar src={userLoggedIn?.photoURL} />
 
-        <IconContainer>
-          <IconButton className='StartChat__btn' onClick={createChat}>
-            <ChatIcon />
-            <StartNewChat>New Chat</StartNewChat>
-          </IconButton>
-          <IconButton
-            className='exit__btn'
-            onClick={async () => {
-              await auth.signOut();
-              router.push(`/`);
-            }}>
-            <ExitToApp />
-            <SignOut>SignOut</SignOut>
-          </IconButton>
-        </IconContainer>
+          <IconContainer>
+            <IconButton className='StartChat__btn' onClick={createChat}>
+              <ChatIcon />
+              <StartNewChat>New Chat</StartNewChat>
+            </IconButton>
+            <IconButton
+              className='exit__btn'
+              onClick={async () => {
+                await auth.signOut();
+                router.push(`/`);
+              }}>
+              <ExitToApp />
+              <SignOut>SignOut</SignOut>
+            </IconButton>
+          </IconContainer>
+        </HeaderDetails>
+        <Search>
+          <SearchIcon />
+          <SearchInput
+            placeholder='Search in chats'
+            onChange={(e) => {
+              searchUsers(e.target.value);
+              e.target.value ? setSearching(true) : setSearching(false);
+            }}
+          />
+        </Search>
       </Header>
-      <Search>
-        <SearchIcon />
-        <SearchInput
-          placeholder='Search in chats'
-          onChange={(e) => {
-            searchUsers(e.target.value);
-            e.target.value ? setSearching(true) : setSearching(false);
-          }}
-        />
-      </Search>
+
       {searching
         ? chatsFiltered.map((chat) => (
             <Chat key={chat.id} id={chat.id} users={chat.data().users} />
@@ -150,31 +153,52 @@ const Container = styled.div`
 const Search = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   border-radius: 2px;
-  padding: 20px;
+  padding: 20px 0px 0px 30px;
 `;
 
 const SearchInput = styled.input`
   outline-width: 0;
   border: none;
   flex: 1;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid grey;
+
+  :focus {
+    border-bottom: 2px solid grey;
+  }
 `;
 
 const Header = styled.div`
   display: flex;
+  flex-direction: column;
   position: sticky;
   top: 0;
   background-color: whiteSmoke;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  height: 80px;
+  padding: 10px 15px;
+  height: 120px;
   border-bottom: 1px solid whiteSmoke;
   z-index: 100;
 `;
 
+const HeaderDetails = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+`;
+
 const UserAvatar = styled(Avatar)`
   cursor: pointer;
+
+  &&& {
+    width: 45px;
+    height: 45px;
+  }
 
   :hover {
     opacity: 0.8;
