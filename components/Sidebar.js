@@ -10,6 +10,7 @@ import * as EmailValidator from 'email-validator';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
+import { ExitToApp } from '@material-ui/icons';
 
 const Sidebar = () => {
   //Router
@@ -81,7 +82,8 @@ const Sidebar = () => {
             <StartNewChat>New Chat</StartNewChat>
           </IconButton>
           <IconButton>
-            <MoreVertIcon />
+            <ExitToApp />
+            <SignOut>SignOut</SignOut>
           </IconButton>
         </IconContainer>
       </Header>
@@ -200,6 +202,10 @@ const IconContainer = styled.div`
 
     & > :hover p {
       display: block;
+    }
+
+    & .div {
+      display: inline-block;
     }
   }
 `;
