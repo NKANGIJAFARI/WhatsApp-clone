@@ -10,7 +10,7 @@ export default function Home() {
       <Main>
         <Head>
           <title>WhatsApp clone</title>
-          <link rel='icon' href='/favicon.ico' />
+          <link rel='icon' href='/chat.svg' />
         </Head>
 
         <Wrapper>
