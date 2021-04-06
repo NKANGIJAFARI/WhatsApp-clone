@@ -6,10 +6,10 @@ const HomeIntro = () => {
     <Container>
       <ImageWrapper>
         <Image
-          src='/chat.png'
+          src='/chat.svg'
           alt='Picture of the author'
-          width={400}
-          height={300}
+          width={350}
+          height={250}
         />
       </ImageWrapper>
       <DetailsContainer>
@@ -30,6 +30,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #f5f5f5;
 `;
 
 const ImageWrapper = styled.div`
@@ -40,4 +41,20 @@ const ImageWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+
+  > img {
+    border-radius: 100%;
+  }
+`;
+
+const DetailsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  > p {
+    margin: 0px;
+  }
 `;
