@@ -68,20 +68,19 @@ const Sidebar = () => {
   return (
     <Container>
       <Header>
-        <UserAvatar
-          src={userLoggedIn?.photoURL}
-          onClick={async () => {
-            await auth.signOut();
-            router.push(`/`);
-          }}
-        />
+        <UserAvatar src={userLoggedIn?.photoURL} />
 
         <IconContainer>
           <IconButton className='StartChat__btn' onClick={createChat}>
             <ChatIcon />
             <StartNewChat>New Chat</StartNewChat>
           </IconButton>
-          <IconButton>
+          <IconButton
+            className='exit__btn'
+            onClick={async () => {
+              await auth.signOut();
+              router.push(`/`);
+            }}>
             <ExitToApp />
             <SignOut>SignOut</SignOut>
           </IconButton>
@@ -185,12 +184,26 @@ const UserAvatar = styled(Avatar)`
 const StartNewChat = styled.p`
   position: absolute;
   top: 100%;
-  left: -40px;
+  left: -25px;
   border: 1px solid whiteSmoke;
   text-align: center;
   display: none;
   &&& {
-    font-size: 16px;
+    font-size: 14px;
+    margin: 0;
+    width: max-content;
+  }
+`;
+
+const SignOut = styled.p`
+  position: absolute;
+  top: 100%;
+  left: -10px;
+  border: 1px solid whiteSmoke;
+  text-align: center;
+  display: none;
+  &&& {
+    font-size: 14px;
     margin: 0;
     width: max-content;
   }
@@ -199,6 +212,7 @@ const StartNewChat = styled.p`
 const IconContainer = styled.div`
   & .StartChat__btn {
     position: relative;
+    margin-left: 10px;
 
     & > :hover p {
       display: block;
@@ -206,6 +220,15 @@ const IconContainer = styled.div`
 
     & .div {
       display: inline-block;
+    }
+  }
+
+  & .exit__btn {
+    position: relative;
+    margin-left: 10px;
+
+    & > :hover p {
+      display: block;
     }
   }
 `;
