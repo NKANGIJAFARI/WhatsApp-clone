@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { Avatar, IconButton, Button } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -12,13 +12,15 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase';
 
 const Sidebar = () => {
-  const [userLoggedIn] = useAuthState(auth);
+  //Router
+  const router = useRouter();
 
+  //States
   const [searching, setSearching] = useState(false);
   const [chatsFiltered, setChatsFiltered] = useState([]);
 
-  //Get whats typed in to search users
-  // const [searchInput, setSearchInput] = useState('');
+  //Authentication State
+  const [userLoggedIn] = useAuthState(auth);
 
   const userChatRef = db
     .collection('chats')
@@ -67,7 +69,10 @@ const Sidebar = () => {
       <Header>
         <UserAvatar
           src={userLoggedIn?.photoURL}
-          onClick={() => auth.signOut()}
+          onClick={async () => {
+            await auth.signOut();
+            router.push(`/`);
+          }}
         />
 
         <IconContainer>
