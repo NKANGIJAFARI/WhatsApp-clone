@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 const HomeIntro = () => {
   return (
     <Container>
@@ -10,6 +12,11 @@ const HomeIntro = () => {
 
 export default HomeIntro;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
-const ImagesWrapper = styled.div``;
+const ImageWrapper = styled.div``;

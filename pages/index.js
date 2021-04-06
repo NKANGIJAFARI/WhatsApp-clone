@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styled from 'styled-components';
+import HomeIntro from '../components/HomeIntro';
 
 import Sidebar from '../components/Sidebar';
 
@@ -13,7 +14,7 @@ export default function Home() {
 
       <Container>
         <Sidebar />
-        <div>This is a chat</div>
+        <HomeIntro />
       </Container>
     </div>
   );
