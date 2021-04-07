@@ -1,4 +1,7 @@
 import { useRef, useState } from 'react';
+import styled from 'styled-components';
+import dynamic from 'next/dynamic';
+const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
 import {
   AttachFile,

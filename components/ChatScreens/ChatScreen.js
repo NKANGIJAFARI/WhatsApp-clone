@@ -6,19 +6,15 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
 import { auth, db } from '../../firebase';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-
-import {
-  AttachFile,
-  AttachFileOutlined,
-  Cancel,
-  InsertEmoticonRounded,
-} from '@material-ui/icons';
 import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
 import TimeAgo from 'timeago-react';
+import dynamic from 'next/dynamic';
 
+const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
+// import Picker from 'emoji-picker-react';
 
+const ChatScreen = ({ chat, messages }) => {
   const router = useRouter();
   const [user] = useAuthState(auth);
 
