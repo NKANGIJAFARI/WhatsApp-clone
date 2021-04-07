@@ -4,8 +4,9 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase';
 import { useRouter } from 'next/router';
 import Message from '../Message';
+import InputContainer from './InputContainer';
 
-const Messages = ({ messages }) => {
+const Messages = ({ messages, user }) => {
   const endOfMessages = useRef(null);
   const router = useRouter();
 
@@ -49,9 +50,12 @@ const Messages = ({ messages }) => {
   return (
     <MessagesWrapper>
       <MessageContainer>
-        {showMessages()}
+        {showMessages(endOfMessages)}
         <EndOfMessages ref={endOfMessages} />
       </MessageContainer>
+      <InputWrap>
+        <InputContainer user={user} endOfMessages={endOfMessages} />
+      </InputWrap>
     </MessagesWrapper>
   );
 };
@@ -71,4 +75,10 @@ const MessageContainer = styled.div`
 
 const EndOfMessages = styled.div`
   margin-bottom: 6px;
+`;
+
+const InputWrap = styled.div`
+  position: sticky;
+  z-index: 100;
+  bottom: 0;
 `;

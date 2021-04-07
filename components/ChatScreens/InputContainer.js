@@ -7,7 +7,11 @@ import { db } from '../../firebase';
 
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
-import { AttachFileOutlined, InsertEmoticonRounded } from '@material-ui/icons';
+import {
+  AttachFileOutlined,
+  InsertEmoticonRounded,
+  SendOutlined,
+} from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 
 const InputContainer = ({ user }) => {
@@ -52,7 +56,6 @@ const InputContainer = ({ user }) => {
     });
 
     setInput('');
-    // ScrollToBottom();
   };
 
   return (
@@ -70,10 +73,9 @@ const InputContainer = ({ user }) => {
       </EmojiWrapper>
 
       <Input value={input} onChange={handleChange} />
-      <button hidden disabled={!input} type='submit' onClick={sendMessage}>
-        Send Message
+      <button disabled={!input} type='submit' onClick={sendMessage}>
+        <SendOutlined />
       </button>
-      <AttachFileOutlined />
     </Container>
   );
 };
@@ -85,9 +87,9 @@ const Container = styled.form`
   align-items: center;
   background-color: white;
 
-  padding: 0px 20px;
+  padding: 6px 20px;
 `;
-const Input = styled.input`
+const Input = styled.textarea`
   flex: 1;
   outline: 0;
   border: none;
