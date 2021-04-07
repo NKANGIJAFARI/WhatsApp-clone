@@ -1,5 +1,8 @@
 import styled from 'styled-components';
+
 const Messages = () => {
+  const endOfMessages = useRef(null);
+
   //This below func will help scroll whenever a message is sent or received
   const ScrollToBottom = () => {
     endOfMessages.current.scrollIntoView({

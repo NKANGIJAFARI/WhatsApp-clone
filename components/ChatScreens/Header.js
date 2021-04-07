@@ -3,7 +3,11 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { AttachFile } from '@material-ui/icons';
 import TimeAgo from 'timeago-react';
 import styled from 'styled-components';
-const Header = () => {
+
+const Header = ({ recipient, showRecipientInfo, user }) => {
+  //Get the email of the recipient
+  const recipientEmail = getRecipientEmail(chat.users, user);
+
   return (
     <Header>
       <HeaderInformation onClick={showRecipientInfo}>

@@ -8,15 +8,13 @@ import { auth, db } from '../../firebase';
 
 import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
+import InputContainer from './InputContainer';
 
 const ChatScreen = ({ chat, messages }) => {
   const router = useRouter();
   const [user] = useAuthState(auth);
 
   const endOfMessages = useRef(null);
-
-  //Get the email of the recipient
-  const recipientEmail = getRecipientEmail(chat.users, user);
 
   //Referenced to the messages collection
   const [messagesSnapshot] = useCollection(
@@ -32,30 +30,9 @@ const ChatScreen = ({ chat, messages }) => {
     db.collection('users').where('email', '==', recipientEmail),
   );
 
+  const recipientEmail = getRecipientEmail(chat.users, user);
+
   const recipient = recipientSnapshot?.docs?.[0]?.data();
-
-  const sendMessage = (e) => {
-    e.preventDefault();
-
-    // This will update a user's last seen status
-    db.collection('users').doc(user.uid).set(
-      {
-        lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
-      },
-      { merge: true },
-    );
-
-    //This functions adds a message to the database
-    db.collection('chats').doc(router.query.id).collection('messages').add({
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      message: input,
-      user: user.email,
-      photoURL: user.photoURL,
-    });
-
-    setInput('');
-    ScrollToBottom();
-  };
 
   //Get recipient information
 
@@ -65,7 +42,13 @@ const ChatScreen = ({ chat, messages }) => {
 
   return (
     <Container>
-      <Header showRecipient={showRecipient} />
+      <Header
+        showRecipient={showRecipientInfo}
+        recipient={recipient}
+        user={user}
+        recipientEmail={recipientEmail}
+      />
+      {/* <InputContainer ScrollToBottom={ScrollToBottom} /> */}
     </Container>
   );
 };

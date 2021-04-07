@@ -10,7 +10,7 @@ import {
   InsertEmoticonRounded,
 } from '@material-ui/icons';
 
-const InputContainer = () => {
+const InputContainer = ({ ScrollToBottom }) => {
   const [input, setInput] = useState('');
   const [showRecipient, setShowRecipient] = useState(false);
 
@@ -22,6 +22,29 @@ const InputContainer = () => {
 
   const handleChange = (e) => {
     setInput(e.target.value);
+  };
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+
+    // This will update a user's last seen status
+    db.collection('users').doc(user.uid).set(
+      {
+        lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
+      },
+      { merge: true },
+    );
+
+    //This functions adds a message to the database
+    db.collection('chats').doc(router.query.id).collection('messages').add({
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      message: input,
+      user: user.email,
+      photoURL: user.photoURL,
+    });
+
+    setInput('');
+    ScrollToBottom();
   };
 
   return (
