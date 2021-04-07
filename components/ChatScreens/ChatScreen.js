@@ -17,24 +17,7 @@ import {
 import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
 import TimeAgo from 'timeago-react';
-import dynamic from 'next/dynamic';
 
-const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
-// import Picker from 'emoji-picker-react';
-
-const ChatScreen = ({ chat, messages }) => {
-  const [input, setInput] = useState('');
-  const [showRecipient, setShowRecipient] = useState(false);
-
-  const [chosenEmoji, setChosenEmoji] = useState(null);
-
-  const onEmojiClick = (event, emojiObject) => {
-    setInput(input + emojiObject.emoji);
-  };
-
-  const handleChange = (e) => {
-    setInput(e.target.value);
-  };
 
   const router = useRouter();
   const [user] = useAuthState(auth);
@@ -118,7 +101,11 @@ const ChatScreen = ({ chat, messages }) => {
     setShowRecipient(!showRecipient);
   };
 
-  return <Container></Container>;
+  return (
+    <Container>
+      <Header showRecipient={showRecipient} />
+    </Container>
+  );
 };
 export default ChatScreen;
 
@@ -126,47 +113,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
-const Header = styled.div`
-  position: sticky;
-  background-color: white;
-  z-index: 100;
-  top: 0;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid whitesmoke;
-  height: 80px;
-  padding: 0px 20px;
-  cursor: pointer;
-`;
-
-const HeaderInformation = styled.div`
-  margin-left: 15px;
-  flex: 1;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const HeaderInfoText = styled.div`
-  > h3 {
-    margin: 0;
-    margin-bottom: 3px;
-  }
-
-  > p {
-    font-size: 14px;
-    color: grey;
-    margin: 0;
-  }
-`;
-
-const HeaderAvatar = styled.div`
-  margin-right: 15px;
-`;
-
-const HeaderIcons = styled.div``;
 
 const MessagesWrapper = styled.div`
   flex: 1;

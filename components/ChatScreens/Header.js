@@ -80,3 +80,5 @@ const HeaderInfoText = styled.div`
 const HeaderAvatar = styled.div`
   margin-right: 15px;
 `;
+
+const HeaderIcons = styled.div``;
