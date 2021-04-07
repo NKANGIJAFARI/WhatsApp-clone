@@ -1,7 +1,21 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { auth, db } from '../../firebase';
+import { useRouter } from 'next/router';
 
 const Messages = ({ ScrollToBottom }) => {
   const endOfMessages = useRef(null);
+  const router = useRouter();
+
+  //Referenced to the messages collection
+  const [messagesSnapshot] = useCollection(
+    db
+      .collection('chats')
+      .doc(router.query.id)
+      .collection('messages')
+      .orderBy('timestamp', 'asc'),
+  );
 
   const showMessages = () => {
     if (messagesSnapshot) {
@@ -17,7 +31,6 @@ const Messages = ({ ScrollToBottom }) => {
         />
       ));
     } else {
-      // ScrollToBottom();
       return JSON.parse(messages).map((message) => (
         <Message key={message.id} user={message.user} message={message} />
       ));

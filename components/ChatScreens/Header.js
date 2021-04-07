@@ -4,12 +4,16 @@ import { AttachFile } from '@material-ui/icons';
 import TimeAgo from 'timeago-react';
 import styled from 'styled-components';
 
-const Header = ({ recipient, showRecipientInfo, user }) => {
+const Header = ({
+  recipient,
+  showRecipientInfo,
+  recipientSnapshot,
+  recipientEmail,
+}) => {
   //Get the email of the recipient
-  const recipientEmail = getRecipientEmail(chat.users, user);
 
   return (
-    <Header>
+    <Container>
       <HeaderInformation onClick={showRecipientInfo}>
         <HeaderAvatar>
           {recipient ? (
@@ -43,13 +47,13 @@ const Header = ({ recipient, showRecipientInfo, user }) => {
           <MoreVertIcon />
         </IconButton>
       </HeaderIcons>
-    </Header>
+    </Container>
   );
 };
 
 export default Header;
 
-const Header = styled.div`
+const Container = styled.div`
   position: sticky;
   background-color: white;
   z-index: 100;

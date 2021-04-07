@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
@@ -15,6 +16,8 @@ const InputContainer = ({ ScrollToBottom }) => {
   const [showRecipient, setShowRecipient] = useState(false);
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const router = useRouter();
 
   const onEmojiClick = (event, emojiObject) => {
     setInput(input + emojiObject.emoji);
@@ -48,7 +51,7 @@ const InputContainer = ({ ScrollToBottom }) => {
   };
 
   return (
-    <InputContainer>
+    <Container>
       <InsertEmoticonRounded />
       <Picker onEmojiClick={onEmojiClick} className='emojiPicker' />
       <Input value={input} onChange={handleChange} />
@@ -56,13 +59,13 @@ const InputContainer = ({ ScrollToBottom }) => {
         Send Message
       </button>
       <AttachFileOutlined />
-    </InputContainer>
+    </Container>
   );
 };
 
 export default InputContainer;
 
-const InputContainer = styled.form`
+const Container = styled.form`
   display: flex;
   align-items: center;
   position: sticky;

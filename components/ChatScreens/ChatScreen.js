@@ -6,33 +6,23 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
 import { auth, db } from '../../firebase';
 
-import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
 import InputContainer from './InputContainer';
 import Messages from './Messages';
 import RecipientDetails from './RecipientDetails';
+import Header from './Header';
 
 const ChatScreen = ({ chat, messages }) => {
-  const router = useRouter();
   const [user] = useAuthState(auth);
 
   const endOfMessages = useRef(null);
 
-  //Referenced to the messages collection
-  const [messagesSnapshot] = useCollection(
-    db
-      .collection('chats')
-      .doc(router.query.id)
-      .collection('messages')
-      .orderBy('timestamp', 'asc'),
-  );
+  const recipientEmail = getRecipientEmail(chat.users, user);
 
   //Referenced to the user collection to get a recipient data
   const [recipientSnapshot] = useCollection(
     db.collection('users').where('email', '==', recipientEmail),
   );
-
-  const recipientEmail = getRecipientEmail(chat.users, user);
 
   const recipient = recipientSnapshot?.docs?.[0]?.data();
 
@@ -56,14 +46,15 @@ const ChatScreen = ({ chat, messages }) => {
         recipient={recipient}
         user={user}
         recipientEmail={recipientEmail}
+        recipientSnapshot={recipientSnapshot}
       />
-      {/* <InputContainer ScrollToBottom={ScrollToBottom} /> */}
-      {/* <Messages ScrollToBottom={ScrollToBottom} /> */}
-      {/* <RecipientDetails
+      <InputContainer ScrollToBottom={ScrollToBottom} />
+      <Messages ScrollToBottom={ScrollToBottom} />
+      <RecipientDetails
         showRecipientInfo={showRecipientInfo}
         recipientEmail={recipientEmail}
         recipient={recipient}
-      /> */}
+      />
     </Container>
   );
 };

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { Cancel } from '@material-ui/icons';
 
 const RecipientDetails = ({ showRecipientInfo, recipientEmail, recipient }) => {
   return (
-    <RecipientDetailsWrapper className={showRecipient ? 'active' : ''}>
-      <RecipientDetails>
+    <Container className={showRecipient ? 'active' : ''}>
+      <Wrapper>
         <CancelIcon onClick={showRecipientInfo} />
         {recipient ? (
           <Avatar
@@ -14,14 +15,14 @@ const RecipientDetails = ({ showRecipientInfo, recipientEmail, recipient }) => {
         )}
         <p>{recipient ? recipient.displayName : 'Account not found'}</p>
         <p>{recipient ? recipient.email : ''}</p>
-      </RecipientDetails>
-    </RecipientDetailsWrapper>
+      </Wrapper>
+    </Container>
   );
 };
 
 export default RecipientDetails;
 
-const RecipientDetailsWrapper = styled.div`
+const Container = styled.div`
   min-width: 300px;
   display: none;
   transition: display 0.9s;
@@ -37,7 +38,7 @@ const RecipientDetailsWrapper = styled.div`
   }
 `;
 
-const RecipientDetails = styled.div`
+const Wrapper = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
