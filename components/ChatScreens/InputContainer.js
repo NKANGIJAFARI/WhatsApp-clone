@@ -37,7 +37,7 @@ const InputContainer = ({ user }) => {
   };
 
   const sendMessage = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
 
     // This will update a user's last seen status
     db.collection('users').doc(user.uid).set(
@@ -58,6 +58,14 @@ const InputContainer = ({ user }) => {
     setInput('');
   };
 
+  const onEnterPress = (e) => {
+    console.log(e);
+    if (e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
   return (
     <Container>
       <IconButton onClick={handleShowEmoji}>
@@ -72,7 +80,7 @@ const InputContainer = ({ user }) => {
         />
       </EmojiWrapper>
 
-      <Input value={input} onChange={handleChange} />
+      <Input value={input} onChange={handleChange} onKeyDown={onEnterPress} />
       <button disabled={!input} type='submit' onClick={sendMessage}>
         <SendOutlined />
       </button>
