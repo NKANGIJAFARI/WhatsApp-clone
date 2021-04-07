@@ -9,7 +9,7 @@ export default function Home() {
     <Container>
       <Main>
         <Head>
-          <title>WhatsApp clone</title>
+          <title>Chat WebApp</title>
           <link rel='icon' href='/chat.svg' />
         </Head>
 

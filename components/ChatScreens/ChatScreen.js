@@ -17,10 +17,21 @@ import {
 import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
 import TimeAgo from 'timeago-react';
+import Picker from 'emoji-picker-react';
 
 const ChatScreen = ({ chat, messages }) => {
   const [input, setInput] = useState('');
   const [showRecipient, setShowRecipient] = useState(false);
+
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const onEmojiClick = (event, emojiObject) => {
+    console.log(event, emojiObject);
+  };
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
 
   const router = useRouter();
   const [user] = useAuthState(auth);
@@ -150,12 +161,8 @@ const ChatScreen = ({ chat, messages }) => {
 
         <InputContainer>
           <InsertEmoticonRounded />
-          <Input
-            value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-            }}
-          />
+          <Picker onEmojiClick={onEmojiClick} />
+          <Input value={input} onChange={handleChange} />
           <button hidden disabled={!input} type='submit' onClick={sendMessage}>
             Send Message
           </button>
