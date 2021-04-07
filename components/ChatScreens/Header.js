@@ -55,7 +55,6 @@ export default Header;
 
 const Container = styled.div`
   background-color: white;
-
   display: flex;
   align-items: center;
   border-bottom: 1px solid whitesmoke;
