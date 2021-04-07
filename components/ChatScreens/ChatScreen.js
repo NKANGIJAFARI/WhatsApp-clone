@@ -76,36 +76,6 @@ const Container = styled.div`
   flex-direction: row;
 `;
 
-const CancelIcon = styled(Cancel)`
-  &&& {
-    font-size: 2.5rem;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    cursor: pointer;
-  }
-`;
-
 const EndOfMessages = styled.div`
   margin-bottom: 6px;
-`;
-
-const InputContainer = styled.form`
-  display: flex;
-  align-items: center;
-  position: sticky;
-  background-color: white;
-  z-index: 100;
-  bottom: 0;
-  padding: 0px 20px;
-`;
-const Input = styled.input`
-  flex: 1;
-  outline: 0;
-  border: none;
-  padding: 15px;
-  background-color: whiteSmoke;
-  margin-right: 15px;
-  margin-left: 15px;
-  border-radius: 10px;
 `;

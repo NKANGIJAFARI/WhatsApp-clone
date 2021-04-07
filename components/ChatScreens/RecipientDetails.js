@@ -56,3 +56,13 @@ const RecipientDetails = styled.div`
     height: 150px;
   }
 `;
+
+const CancelIcon = styled(Cancel)`
+  &&& {
+    font-size: 2.5rem;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
+`;

@@ -38,3 +38,23 @@ const InputContainer = () => {
 };
 
 export default InputContainer;
+
+const InputContainer = styled.form`
+  display: flex;
+  align-items: center;
+  position: sticky;
+  background-color: white;
+  z-index: 100;
+  bottom: 0;
+  padding: 0px 20px;
+`;
+const Input = styled.input`
+  flex: 1;
+  outline: 0;
+  border: none;
+  padding: 15px;
+  background-color: whiteSmoke;
+  margin-right: 15px;
+  margin-left: 15px;
+  border-radius: 10px;
+`;
