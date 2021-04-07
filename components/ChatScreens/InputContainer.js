@@ -11,6 +11,7 @@ import { AttachFileOutlined, InsertEmoticonRounded } from '@material-ui/icons';
 
 const InputContainer = ({ user }) => {
   const [input, setInput] = useState('');
+  const [showEmojis, setShowEmojis] = useState();
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
@@ -22,6 +23,11 @@ const InputContainer = ({ user }) => {
 
   const handleChange = (e) => {
     setInput(e.target.value);
+  };
+
+  //Show or hide the emoji picker
+  const handleShowEmoji = () => {
+    setShowEmojis(!showEmojis);
   };
 
   const sendMessage = (e) => {
@@ -49,7 +55,11 @@ const InputContainer = ({ user }) => {
 
   return (
     <Container>
-      <InsertEmoticonRounded />
+      <InsertEmoticonRounded
+        onClick={() => {
+          handleShowEmoji;
+        }}
+      />
 
       <EmojiWrapper>
         <Picker onEmojiClick={onEmojiClick} className='emojiPicker' />
@@ -69,10 +79,8 @@ export default InputContainer;
 const Container = styled.form`
   display: flex;
   align-items: center;
-  position: sticky;
   background-color: white;
-  z-index: 100;
-  bottom: 0;
+
   padding: 0px 20px;
 `;
 const Input = styled.input`
@@ -87,5 +95,12 @@ const Input = styled.input`
 `;
 
 const EmojiWrapper = styled.div`
-  display: none;
+  display: block;
+  position: absolute;
+  bottom: 300px;
+  left: 0;
+
+  &.active {
+    display: block;
+  }
 `;

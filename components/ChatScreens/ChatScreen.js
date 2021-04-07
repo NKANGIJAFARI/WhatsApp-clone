@@ -47,8 +47,9 @@ const ChatScreen = ({ chat, messages }) => {
         <MessagesWrap>
           <Messages messages={messages} />
         </MessagesWrap>
-
-        <InputContainer user={user} />
+        <InputWrap>
+          <InputContainer user={user} />
+        </InputWrap>
       </Main>
       <RecipientDetails
         showRecipient={showRecipient}
@@ -74,5 +75,12 @@ const HeaderWrap = styled.div`
 
 const Main = styled.div`
   width: 100%;
+  position: relative;
+`;
+
+const InputWrap = styled.div`
+  position: sticky;
+  z-index: 100;
+  bottom: 0;
 `;
 const MessagesWrap = styled.div``;
