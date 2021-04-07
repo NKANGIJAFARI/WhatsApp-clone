@@ -125,16 +125,6 @@ const ChatScreen = ({ chat, messages }) => {
           {showMessages()}
           <EndOfMessages ref={endOfMessages} />
         </MessageContainer>
-
-        <InputContainer>
-          <InsertEmoticonRounded />
-          <Picker onEmojiClick={onEmojiClick} className='emojiPicker' />
-          <Input value={input} onChange={handleChange} />
-          <button hidden disabled={!input} type='submit' onClick={sendMessage}>
-            Send Message
-          </button>
-          <AttachFileOutlined />
-        </InputContainer>
       </MessagesWrapper>
     </Container>
   );
