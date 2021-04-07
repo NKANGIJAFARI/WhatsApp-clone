@@ -54,10 +54,8 @@ const Header = ({
 export default Header;
 
 const Container = styled.div`
-  position: sticky;
   background-color: white;
-  z-index: 100;
-  top: 0;
+
   display: flex;
   align-items: center;
   border-bottom: 1px solid whitesmoke;

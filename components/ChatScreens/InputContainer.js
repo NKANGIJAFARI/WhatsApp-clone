@@ -9,7 +9,7 @@ const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
 import { AttachFileOutlined, InsertEmoticonRounded } from '@material-ui/icons';
 
-const InputContainer = () => {
+const InputContainer = ({ user }) => {
   const [input, setInput] = useState('');
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -50,7 +50,11 @@ const InputContainer = () => {
   return (
     <Container>
       <InsertEmoticonRounded />
-      <Picker onEmojiClick={onEmojiClick} className='emojiPicker' />
+
+      <EmojiWrapper>
+        <Picker onEmojiClick={onEmojiClick} className='emojiPicker' />
+      </EmojiWrapper>
+
       <Input value={input} onChange={handleChange} />
       <button hidden disabled={!input} type='submit' onClick={sendMessage}>
         Send Message
@@ -80,4 +84,8 @@ const Input = styled.input`
   margin-right: 15px;
   margin-left: 15px;
   border-radius: 10px;
+`;
+
+const EmojiWrapper = styled.div`
+  display: none;
 `;

@@ -34,16 +34,19 @@ const ChatScreen = ({ chat, messages }) => {
 
   return (
     <Container>
-      <Header
-        showRecipientInfo={showRecipientInfo}
-        recipient={recipient}
-        user={user}
-        recipientEmail={recipientEmail}
-        recipientSnapshot={recipientSnapshot}
-      />
-      <InputContainer />
+      <HeaderWrap>
+        <Header
+          showRecipientInfo={showRecipientInfo}
+          recipient={recipient}
+          user={user}
+          recipientEmail={recipientEmail}
+          recipientSnapshot={recipientSnapshot}
+        />
+      </HeaderWrap>
+
       <Messages messages={messages} />
       {/* ScrollToBottom={ScrollToBottom} */}
+      <InputContainer user={user} />
       <RecipientDetails
         showRecipient={showRecipient}
         showRecipientInfo={showRecipientInfo}
@@ -57,5 +60,13 @@ export default ChatScreen;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
+
+const HeaderWrap = styled.div`
+  z-index: 100;
+  position: sticky;
+  top: 0;
+`;
+
+const MessagesWrap = styled.div``;
