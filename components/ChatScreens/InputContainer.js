@@ -1,3 +1,12 @@
+import { useRef, useState } from 'react';
+
+import {
+  AttachFile,
+  AttachFileOutlined,
+  Cancel,
+  InsertEmoticonRounded,
+} from '@material-ui/icons';
+
 const InputContainer = () => {
   const [input, setInput] = useState('');
   const [showRecipient, setShowRecipient] = useState(false);
