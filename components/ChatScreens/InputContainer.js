@@ -75,7 +75,7 @@ const InputContainer = ({ user }) => {
       <EmojiWrapper className={showEmojis ? 'active' : ''}>
         <Picker
           onEmojiClick={onEmojiClick}
-          pickerStyle={{ width: '50%', height: '65vh' }}
+          pickerStyle={{ width: '45%', height: '60vh' }}
           className='emojiPicker'
         />
       </EmojiWrapper>
@@ -106,6 +106,8 @@ const Input = styled.textarea`
   margin-right: 15px;
   margin-left: 15px;
   border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
 `;
 
 const EmojiWrapper = styled.div`
@@ -116,6 +118,6 @@ const EmojiWrapper = styled.div`
 
   &.active {
     display: block;
-    bottom: 50px;
+    bottom: 75px;
   }
 `;
