@@ -56,6 +56,9 @@ const InputContainer = ({ user }) => {
     });
 
     setInput('');
+    if (showEmojis) {
+      setShowEmojis(false);
+    }
   };
 
   const onEnterPress = (e) => {
