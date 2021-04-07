@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
 import { auth, db } from '../../firebase';
-import { Avatar, IconButton } from '@material-ui/core';
+
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import {
@@ -118,16 +118,7 @@ const ChatScreen = ({ chat, messages }) => {
     setShowRecipient(!showRecipient);
   };
 
-  return (
-    <Container>
-      <MessagesWrapper>
-        <MessageContainer>
-          {showMessages()}
-          <EndOfMessages ref={endOfMessages} />
-        </MessageContainer>
-      </MessagesWrapper>
-    </Container>
-  );
+  return <Container></Container>;
 };
 export default ChatScreen;
 
