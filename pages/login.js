@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 
 import { Button } from '@material-ui/core';
 import { auth, provider } from '../firebase';
+import { QuestionAnswer } from '@material-ui/icons';
 
 const Login = () => {
   const signIn = () => {
@@ -40,7 +40,7 @@ const LoginContainer = styled.div`
   box-shadow: 0px 4px -3px rgba(0, 0, 0, 0.7);
 `;
 
-const ChatLogo = styled(QuestionAnswerIcon)`
+const ChatLogo = styled(QuestionAnswer)`
   color: #3cbc28;
   width: 100px;
   margin-bottom: 30px;

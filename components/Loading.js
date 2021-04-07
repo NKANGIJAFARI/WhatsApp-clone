@@ -1,4 +1,4 @@
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import QuestionAnswer from '@material-ui/icons/QuestionAnswer';
 import { Circle } from 'better-react-spinkit';
 import styled from 'styled-components';
 
@@ -11,7 +11,7 @@ const Loading = () => {
   );
 };
 
-const ChatLogo = styled(QuestionAnswerIcon)`
+const ChatLogo = styled(QuestionAnswer)`
   &&& {
     color: #3cbc28;
     margin-bottom: 30px;

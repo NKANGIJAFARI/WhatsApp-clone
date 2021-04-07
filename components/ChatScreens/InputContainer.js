@@ -8,6 +8,7 @@ import { db } from '../../firebase';
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
 import { AttachFileOutlined, InsertEmoticonRounded } from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
 
 const InputContainer = ({ user }) => {
   const [input, setInput] = useState('');
@@ -27,6 +28,7 @@ const InputContainer = ({ user }) => {
 
   //Show or hide the emoji picker
   const handleShowEmoji = () => {
+    console.log('clicked');
     setShowEmojis(!showEmojis);
   };
 
@@ -55,14 +57,16 @@ const InputContainer = ({ user }) => {
 
   return (
     <Container>
-      <InsertEmoticonRounded
-        onClick={() => {
-          handleShowEmoji;
-        }}
-      />
+      <IconButton onClick={handleShowEmoji}>
+        <InsertEmoticonRounded />
+      </IconButton>
 
-      <EmojiWrapper>
-        <Picker onEmojiClick={onEmojiClick} className='emojiPicker' />
+      <EmojiWrapper className={showEmojis ? 'active' : ''}>
+        <Picker
+          onEmojiClick={onEmojiClick}
+          pickerStyle={{ width: '50%', height: '65vh' }}
+          className='emojiPicker'
+        />
       </EmojiWrapper>
 
       <Input value={input} onChange={handleChange} />
@@ -95,12 +99,13 @@ const Input = styled.input`
 `;
 
 const EmojiWrapper = styled.div`
-  display: block;
+  display: none;
   position: absolute;
-  bottom: 300px;
+  bottom: -600px;
   left: 0;
 
   &.active {
     display: block;
+    bottom: 50px;
   }
 `;
