@@ -40,3 +40,14 @@ const Messages = () => {
 };
 
 export default Messages;
+
+const MessagesWrapper = styled.div`
+  flex: 1;
+`;
+
+const MessageContainer = styled.div`
+  padding: 20px;
+  padding-top: 83px;
+  background-color: #e5ded8;
+  min-height: 90vh;
+`;

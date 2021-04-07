@@ -34,35 +34,6 @@ const ChatScreen = ({ chat, messages }) => {
 
   const recipient = recipientSnapshot?.docs?.[0]?.data();
 
-  //This below func will help scroll whenever a message is sent or received
-  const ScrollToBottom = () => {
-    endOfMessages.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-
-  const showMessages = () => {
-    if (messagesSnapshot) {
-      ScrollToBottom();
-      return messagesSnapshot.docs.map((message) => (
-        <Message
-          key={message.id}
-          user={message.data().user}
-          message={{
-            ...message.data(),
-            timestamp: message.data().timestamp?.toDate().getTime(),
-          }}
-        />
-      ));
-    } else {
-      // ScrollToBottom();
-      return JSON.parse(messages).map((message) => (
-        <Message key={message.id} user={message.user} message={message} />
-      ));
-    }
-  };
-
   const sendMessage = (e) => {
     e.preventDefault();
 
@@ -103,17 +74,6 @@ export default ChatScreen;
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const MessagesWrapper = styled.div`
-  flex: 1;
-`;
-
-const MessageContainer = styled.div`
-  padding: 20px;
-  padding-top: 83px;
-  background-color: #e5ded8;
-  min-height: 90vh;
 `;
 
 const RecipientDetailsWrapper = styled.div`
