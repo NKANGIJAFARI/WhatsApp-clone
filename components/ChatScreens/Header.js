@@ -1,7 +1,8 @@
 import { Avatar, IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { AttachFile } from '@material-ui/icons';
-
+import TimeAgo from 'timeago-react';
+import styled from 'styled-components';
 const Header = () => {
   return (
     <Header>

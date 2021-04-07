@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -8,11 +8,6 @@ import { auth, db } from '../../firebase';
 
 import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
-import TimeAgo from 'timeago-react';
-import dynamic from 'next/dynamic';
-
-const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
-// import Picker from 'emoji-picker-react';
 
 const ChatScreen = ({ chat, messages }) => {
   const router = useRouter();
