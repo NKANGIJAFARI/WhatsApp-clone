@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import firebase from 'firebase';
+import { db } from '../../firebase';
+
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
 import { AttachFileOutlined, InsertEmoticonRounded } from '@material-ui/icons';
 
-const InputContainer = ({ ScrollToBottom }) => {
+const InputContainer = () => {
   const [input, setInput] = useState('');
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -42,7 +44,7 @@ const InputContainer = ({ ScrollToBottom }) => {
     });
 
     setInput('');
-    ScrollToBottom();
+    // ScrollToBottom();
   };
 
   return (

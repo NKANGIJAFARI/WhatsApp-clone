@@ -5,9 +5,17 @@ import { db } from '../../firebase';
 import { useRouter } from 'next/router';
 import Message from '../Message';
 
-const Messages = ({ ScrollToBottom, messages }) => {
+const Messages = ({ messages }) => {
   const endOfMessages = useRef(null);
   const router = useRouter();
+
+  //This below func will help scroll whenever a message is sent or received
+  const ScrollToBottom = () => {
+    endOfMessages.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
 
   //Referenced to the messages collection
   const [messagesSnapshot] = useCollection(

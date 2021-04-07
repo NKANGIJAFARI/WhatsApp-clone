@@ -32,14 +32,6 @@ const ChatScreen = ({ chat, messages }) => {
     setShowRecipient(!showRecipient);
   };
 
-  //This below func will help scroll whenever a message is sent or received
-  const ScrollToBottom = () => {
-    endOfMessages.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-
   return (
     <Container>
       <Header
@@ -49,8 +41,9 @@ const ChatScreen = ({ chat, messages }) => {
         recipientEmail={recipientEmail}
         recipientSnapshot={recipientSnapshot}
       />
-      <InputContainer ScrollToBottom={ScrollToBottom} />
-      <Messages ScrollToBottom={ScrollToBottom} messages={messages} />
+      <InputContainer />
+      <Messages messages={messages} />
+      {/* ScrollToBottom={ScrollToBottom} */}
       <RecipientDetails
         showRecipient={showRecipient}
         showRecipientInfo={showRecipientInfo}
