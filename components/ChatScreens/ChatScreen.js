@@ -17,7 +17,10 @@ import {
 import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
 import TimeAgo from 'timeago-react';
-import Picker from 'emoji-picker-react';
+import dynamic from 'next/dynamic';
+
+const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
+// import Picker from 'emoji-picker-react';
 
 const ChatScreen = ({ chat, messages }) => {
   const [input, setInput] = useState('');
@@ -26,7 +29,7 @@ const ChatScreen = ({ chat, messages }) => {
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
   const onEmojiClick = (event, emojiObject) => {
-    console.log(event, emojiObject);
+    setInput(input + emojiObject.emoji);
   };
 
   const handleChange = (e) => {
@@ -161,7 +164,7 @@ const ChatScreen = ({ chat, messages }) => {
 
         <InputContainer>
           <InsertEmoticonRounded />
-          <Picker onEmojiClick={onEmojiClick} />
+          <Picker onEmojiClick={onEmojiClick} className='emojiPicker' />
           <Input value={input} onChange={handleChange} />
           <button hidden disabled={!input} type='submit' onClick={sendMessage}>
             Send Message
@@ -180,7 +183,6 @@ const ChatScreen = ({ chat, messages }) => {
           ) : (
             <Avatar src={recipientEmail[0]}></Avatar>
           )}
-
           <p>{recipient ? recipient.displayName : 'Account not found'}</p>
           <p>{recipient ? recipient.email : ''}</p>
         </RecipientDetails>
