@@ -9,6 +9,8 @@ import { auth, db } from '../../firebase';
 import Message from '../Message';
 import getRecipientEmail from '../../utils/getRecipientEmail';
 import InputContainer from './InputContainer';
+import Messages from './Messages';
+import RecipientDetails from './RecipientDetails';
 
 const ChatScreen = ({ chat, messages }) => {
   const router = useRouter();
@@ -35,20 +37,33 @@ const ChatScreen = ({ chat, messages }) => {
   const recipient = recipientSnapshot?.docs?.[0]?.data();
 
   //Get recipient information
-
   const showRecipientInfo = () => {
     setShowRecipient(!showRecipient);
+  };
+
+  //This below func will help scroll whenever a message is sent or received
+  const ScrollToBottom = () => {
+    endOfMessages.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   };
 
   return (
     <Container>
       <Header
-        showRecipient={showRecipientInfo}
+        showRecipientInfo={showRecipientInfo}
         recipient={recipient}
         user={user}
         recipientEmail={recipientEmail}
       />
       {/* <InputContainer ScrollToBottom={ScrollToBottom} /> */}
+      {/* <Messages ScrollToBottom={ScrollToBottom} /> */}
+      {/* <RecipientDetails
+        showRecipientInfo={showRecipientInfo}
+        recipientEmail={recipientEmail}
+        recipient={recipient}
+      /> */}
     </Container>
   );
 };
@@ -57,8 +72,4 @@ export default ChatScreen;
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const EndOfMessages = styled.div`
-  margin-bottom: 6px;
 `;

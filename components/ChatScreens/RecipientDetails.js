@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const RecipientDetails = () => {
+const RecipientDetails = ({ showRecipientInfo, recipientEmail, recipient }) => {
   return (
     <RecipientDetailsWrapper className={showRecipient ? 'active' : ''}>
       <RecipientDetails>
