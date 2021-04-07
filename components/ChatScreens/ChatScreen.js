@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -14,6 +14,7 @@ import Header from './Header';
 
 const ChatScreen = ({ chat, messages }) => {
   const [user] = useAuthState(auth);
+  const [showRecipient, setShowRecipient] = useState(false);
 
   const endOfMessages = useRef(null);
 
@@ -49,8 +50,9 @@ const ChatScreen = ({ chat, messages }) => {
         recipientSnapshot={recipientSnapshot}
       />
       <InputContainer ScrollToBottom={ScrollToBottom} />
-      <Messages ScrollToBottom={ScrollToBottom} />
+      <Messages ScrollToBottom={ScrollToBottom} messages={messages} />
       <RecipientDetails
+        showRecipient={showRecipient}
         showRecipientInfo={showRecipientInfo}
         recipientEmail={recipientEmail}
         recipient={recipient}

@@ -1,10 +1,11 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import { useRouter } from 'next/router';
+import Message from '../Message';
 
-const Messages = ({ ScrollToBottom }) => {
+const Messages = ({ ScrollToBottom, messages }) => {
   const endOfMessages = useRef(null);
   const router = useRouter();
 

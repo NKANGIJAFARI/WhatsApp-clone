@@ -2,18 +2,13 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import firebase from 'firebase';
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
-import {
-  AttachFile,
-  AttachFileOutlined,
-  Cancel,
-  InsertEmoticonRounded,
-} from '@material-ui/icons';
+import { AttachFileOutlined, InsertEmoticonRounded } from '@material-ui/icons';
 
 const InputContainer = ({ ScrollToBottom }) => {
   const [input, setInput] = useState('');
-  const [showRecipient, setShowRecipient] = useState(false);
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
 

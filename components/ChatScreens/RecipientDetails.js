@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { Cancel } from '@material-ui/icons';
+import { Avatar } from '@material-ui/core';
 
-const RecipientDetails = ({ showRecipientInfo, recipientEmail, recipient }) => {
+const RecipientDetails = ({
+  showRecipient,
+  showRecipientInfo,
+  recipientEmail,
+  recipient,
+}) => {
   return (
     <Container className={showRecipient ? 'active' : ''}>
       <Wrapper>
